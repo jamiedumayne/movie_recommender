@@ -13,5 +13,6 @@ There is somethings I'd like to improve on:
 - Incorporate just watch api to be able to tailor recommendations based on the streaming platforms I have access to.
 
 There are also some bugs with the code that need fixing
+- There is over 4000 users in the data table, this would take a few hours to run. So for now I just limit it to use the first 500 users. 
 - Currently a problem with my movie ratings only having the movie title. This means when the data table is merged with the movie data table there is an issue if there is more than one movie with the same name e.g. Cinderella.
 - Some movies are missing from the movie table, so if they're recommended from a user's rating I just have to skip those

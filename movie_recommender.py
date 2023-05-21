@@ -2,11 +2,8 @@ import numpy as np
 import pandas as pd
 import os
 
-#local directory of data
-os.chdir("C:/Users/jamie/Documents/Code/movie_data/")
-
-#import movie data, provided by Sam Learner
-#https://github.com/sdl60660/letterboxd_recommendations
+"""Import files"""
+#movie data, provided by Sam Learner, https://github.com/sdl60660/letterboxd_recommendations
 movie_info = pd.read_csv('movie_data.csv', lineterminator='\n')
 user_rating = pd.read_csv('ratings_export.csv')
 user_info = pd.read_csv('users_export.csv')
@@ -14,13 +11,14 @@ user_info = pd.read_csv('users_export.csv')
 #drop unnecessary data
 movie_info = movie_info.drop(movie_info.columns[[0, 2, 3, 4, 8, 9, 10, 12, 13, 14, 15]],axis = 1)
 movie_info = movie_info.fillna(0)
+#filter for most relevant movies
 movie_info = movie_info[movie_info["vote_count"] > 5]
 movie_info = movie_info[movie_info["year_released"] > 1980]
 
 user_rating = user_rating.drop(user_rating.columns[[0]],axis = 1)
 user_info = user_info.drop(user_info.columns[[0, 1]],axis = 1)
 
-#import my ratings, can be replaced for anyones
+#import my movie ratings
 my_ratings = pd.read_csv('my_ratings.csv')
 my_ratings = my_ratings.drop(my_ratings.columns[[0, 3]],axis = 1)
 my_ratings["Rating"] = my_ratings["Rating"] * 2
@@ -35,7 +33,7 @@ group_user_rating = user_rating.groupby("user_id")
 scores = []
 user_key_arr = []
 user_key = list(group_user_rating.groups.keys())
-user_key = user_key[0:100]
+user_key = user_key[0:500]
 
 for users in user_key:
     user_key_arr.append(users)
